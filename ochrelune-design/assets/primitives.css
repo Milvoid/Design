@@ -1,0 +1,82 @@
+/* Optional starter, not a full component library. Load tokens.css first.
+   Explicit .ochrelune-* classes avoid restyling unrelated project components. */
+.ochrelune-root {
+  background: var(--ochrelune-canvas);
+  color: var(--ochrelune-text);
+  font-family: var(--ochrelune-font-sans);
+  font-size: var(--ochrelune-text-md);
+  line-height: 1.65;
+  accent-color: var(--ochrelune-accent);
+}
+.ochrelune-root, .ochrelune-root *, .ochrelune-root *::before, .ochrelune-root *::after { box-sizing: border-box; }
+.ochrelune-root ::selection { background: var(--ochrelune-selection); color: var(--ochrelune-text); }
+.ochrelune-root :focus-visible { outline: 2px solid var(--ochrelune-focus); outline-offset: 3px; }
+.ochrelune-root .ochrelune-shell { max-width: var(--ochrelune-content-width); margin-inline: auto; padding: var(--ochrelune-space-8) var(--ochrelune-space-6); }
+.ochrelune-root .ochrelune-prose { max-width: var(--ochrelune-reading-width); line-height: 1.8; overflow-wrap: anywhere; }
+.ochrelune-root .ochrelune-title { font-size: var(--ochrelune-text-title); font-weight: 600; line-height: 1.3; margin: 0 0 var(--ochrelune-space-4); }
+.ochrelune-root .ochrelune-title--editorial { font-family: var(--ochrelune-font-serif); font-size: var(--ochrelune-text-display); font-weight: 400; }
+.ochrelune-root .ochrelune-section-title { font-size: var(--ochrelune-text-xl); font-weight: 600; line-height: 1.4; margin: var(--ochrelune-space-8) 0 var(--ochrelune-space-4); }
+.ochrelune-root .ochrelune-muted { color: var(--ochrelune-text-muted); }
+.ochrelune-root .ochrelune-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: var(--ochrelune-space-2); }
+.ochrelune-root .ochrelune-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ochrelune-space-6); }
+.ochrelune-root .ochrelune-grid > * { min-width: 0; }
+.ochrelune-root .ochrelune-panel { border: 1px solid var(--ochrelune-border); border-radius: var(--ochrelune-radius-panel); background: var(--ochrelune-surface); padding: var(--ochrelune-space-6); min-width: 0; }
+.ochrelune-root .ochrelune-section { padding-block: var(--ochrelune-space-6); border-bottom: 1px solid var(--ochrelune-border); }
+.ochrelune-root .ochrelune-link { color: var(--ochrelune-accent); text-decoration: underline; text-underline-offset: .2em; }
+.ochrelune-root .ochrelune-link:hover { color: var(--ochrelune-accent-hover); }
+.ochrelune-root .ochrelune-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--ochrelune-space-2);
+  min-height: var(--ochrelune-control-height); padding: .5rem .875rem;
+  border: 1px solid var(--ochrelune-control-border); border-radius: var(--ochrelune-radius-control);
+  color: var(--ochrelune-text); background: var(--ochrelune-surface); font: 500 var(--ochrelune-text-sm)/1.4 var(--ochrelune-font-sans);
+  text-decoration: none; cursor: pointer;
+  transition: background-color var(--ochrelune-duration) var(--ochrelune-easing), border-color var(--ochrelune-duration) var(--ochrelune-easing);
+}
+.ochrelune-root .ochrelune-button:hover { background: var(--ochrelune-surface-muted); }
+.ochrelune-root .ochrelune-button:active { background: var(--ochrelune-surface-strong); }
+.ochrelune-root .ochrelune-button--primary { background: var(--ochrelune-action); color: var(--ochrelune-on-action); border-color: var(--ochrelune-action); }
+.ochrelune-root .ochrelune-button--primary:hover, .ochrelune-root .ochrelune-button--primary:active { background: var(--ochrelune-action-hover); border-color: var(--ochrelune-action-hover); }
+.ochrelune-root .ochrelune-button--ghost { border-color: transparent; background: transparent; }
+.ochrelune-root .ochrelune-button--danger { color: var(--ochrelune-danger); border-color: var(--ochrelune-danger); }
+.ochrelune-root .ochrelune-button--danger:hover { background: var(--ochrelune-danger-bg); }
+.ochrelune-root .ochrelune-button:disabled { opacity: .5; cursor: not-allowed; }
+.ochrelune-root .ochrelune-button[aria-busy="true"] { cursor: progress; }
+.ochrelune-root .ochrelune-field { display: grid; gap: var(--ochrelune-space-2); min-width: 0; }
+.ochrelune-root .ochrelune-label { font-size: var(--ochrelune-text-sm); font-weight: 500; }
+.ochrelune-root .ochrelune-help { margin: 0; color: var(--ochrelune-text-muted); font-size: var(--ochrelune-text-sm); }
+.ochrelune-root .ochrelune-error { margin: 0; color: var(--ochrelune-danger); font-size: var(--ochrelune-text-sm); }
+.ochrelune-root .ochrelune-input {
+  width: 100%; min-width: 0; min-height: var(--ochrelune-control-height); padding: .625rem .75rem;
+  color: var(--ochrelune-text); background: var(--ochrelune-surface); border: 1px solid var(--ochrelune-control-border);
+  border-radius: var(--ochrelune-radius-control); font: inherit; line-height: 1.5;
+}
+.ochrelune-root .ochrelune-input::placeholder { color: var(--ochrelune-text-muted); opacity: 1; }
+.ochrelune-root .ochrelune-input[aria-invalid="true"] { border-color: var(--ochrelune-danger); }
+.ochrelune-root .ochrelune-input:disabled { background: var(--ochrelune-surface-muted); cursor: not-allowed; }
+.ochrelune-root textarea.ochrelune-input { resize: vertical; min-height: 7rem; }
+.ochrelune-root .ochrelune-alert { padding: var(--ochrelune-space-4); background: var(--ochrelune-surface-muted); border-radius: var(--ochrelune-radius-control); }
+.ochrelune-root .ochrelune-alert--warning { background: var(--ochrelune-warning-bg); color: var(--ochrelune-warning); }
+.ochrelune-root .ochrelune-alert--error { background: var(--ochrelune-danger-bg); color: var(--ochrelune-danger); }
+.ochrelune-root .ochrelune-alert--success { background: var(--ochrelune-success-bg); color: var(--ochrelune-success); }
+.ochrelune-root .ochrelune-alert--info { background: var(--ochrelune-info-bg); color: var(--ochrelune-info); }
+.ochrelune-root .ochrelune-table-scroll { max-width: 100%; overflow: auto; border: 1px solid var(--ochrelune-border); border-radius: var(--ochrelune-radius-control); }
+.ochrelune-root .ochrelune-table { width: 100%; border-collapse: collapse; font-size: var(--ochrelune-text-sm); font-variant-numeric: tabular-nums; }
+.ochrelune-root .ochrelune-table th, .ochrelune-root .ochrelune-table td { padding: .75rem 1rem; border-bottom: 1px solid var(--ochrelune-border); text-align: left; }
+.ochrelune-root .ochrelune-table th { background: var(--ochrelune-surface-muted); color: var(--ochrelune-text-secondary); font-weight: 500; }
+.ochrelune-root .ochrelune-table tbody tr:hover { background: var(--ochrelune-surface-subtle); }
+.ochrelune-root .ochrelune-table .ochrelune-number { text-align: right; white-space: nowrap; }
+.ochrelune-root .ochrelune-table tr[aria-selected="true"] { background: var(--ochrelune-accent-soft); }
+.ochrelune-root .ochrelune-code { max-width: 100%; overflow: auto; padding: var(--ochrelune-space-4); border-radius: var(--ochrelune-radius-control); background: var(--ochrelune-surface-muted); color: var(--ochrelune-text-secondary); font: var(--ochrelune-text-sm)/1.8 var(--ochrelune-font-mono); }
+.ochrelune-root .ochrelune-disclosure > summary { cursor: pointer; padding-block: var(--ochrelune-space-3); font-weight: 500; }
+.ochrelune-root .ochrelune-disclosure > summary::marker { color: var(--ochrelune-accent); }
+.ochrelune-root .ochrelune-dialog { max-width: min(36rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); overflow: auto; border: 1px solid var(--ochrelune-border); border-radius: var(--ochrelune-radius-dialog); padding: var(--ochrelune-space-6); color: var(--ochrelune-text); background: var(--ochrelune-surface); box-shadow: var(--ochrelune-shadow-overlay); }
+.ochrelune-root .ochrelune-dialog::backdrop { background: var(--ochrelune-backdrop); }
+@media (max-width: 48rem) {
+  .ochrelune-root .ochrelune-shell { padding: var(--ochrelune-space-6) var(--ochrelune-space-4); }
+  .ochrelune-root .ochrelune-grid { grid-template-columns: minmax(0, 1fr); }
+  .ochrelune-root .ochrelune-title--editorial { font-size: 2rem; }
+  .ochrelune-root .ochrelune-panel { padding: var(--ochrelune-space-4); }
+}
+@media (pointer: coarse) {
+  .ochrelune-root .ochrelune-button, .ochrelune-root .ochrelune-input { min-height: 2.75rem; }
+}

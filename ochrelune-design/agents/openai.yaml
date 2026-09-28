@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ochrelune Design"
+  short_description: "暖白、炭黑与陶土色的跨项目界面设计，覆盖组件、数据图表及保真换肤"
+  default_prompt: "使用 $ochrelune-design 为当前项目适配温和克制的编辑式界面，保留现有内容与业务行为。"
