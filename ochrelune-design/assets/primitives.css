@@ -21,7 +21,7 @@
 .ochrelune-root .ochrelune-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ochrelune-space-6); }
 .ochrelune-root .ochrelune-grid > * { min-width: 0; }
 .ochrelune-root .ochrelune-panel { border: 1px solid var(--ochrelune-border); border-radius: var(--ochrelune-radius-panel); background: var(--ochrelune-surface); padding: var(--ochrelune-space-6); min-width: 0; }
-.ochrelune-root .ochrelune-section { padding-block: var(--ochrelune-space-6); border-bottom: 1px solid var(--ochrelune-border); }
+.ochrelune-root .ochrelune-section { padding-block: var(--ochrelune-space-6); min-width: 0; }
 .ochrelune-root .ochrelune-link { color: var(--ochrelune-accent); text-decoration: underline; text-underline-offset: .2em; }
 .ochrelune-root .ochrelune-link:hover { color: var(--ochrelune-accent-hover); }
 .ochrelune-root .ochrelune-button {
@@ -59,7 +59,8 @@
 .ochrelune-root .ochrelune-alert--error { background: var(--ochrelune-danger-bg); color: var(--ochrelune-danger); }
 .ochrelune-root .ochrelune-alert--success { background: var(--ochrelune-success-bg); color: var(--ochrelune-success); }
 .ochrelune-root .ochrelune-alert--info { background: var(--ochrelune-info-bg); color: var(--ochrelune-info); }
-.ochrelune-root .ochrelune-table-scroll { max-width: 100%; overflow: auto; border: 1px solid var(--ochrelune-border); border-radius: var(--ochrelune-radius-control); }
+.ochrelune-root .ochrelune-table-scroll { max-width: 100%; overflow: auto; }
+.ochrelune-root .ochrelune-table-scroll--bounded { border: 1px solid var(--ochrelune-border); border-radius: var(--ochrelune-radius-control); }
 .ochrelune-root .ochrelune-table { width: 100%; border-collapse: collapse; font-size: var(--ochrelune-text-sm); font-variant-numeric: tabular-nums; }
 .ochrelune-root .ochrelune-table th, .ochrelune-root .ochrelune-table td { padding: .75rem 1rem; border-bottom: 1px solid var(--ochrelune-border); text-align: left; }
 .ochrelune-root .ochrelune-table th { background: var(--ochrelune-surface-muted); color: var(--ochrelune-text-secondary); font-weight: 500; }

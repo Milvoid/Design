@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="./primitives.css">
 <main class="ochrelune-root">
   <div class="ochrelune-shell">
-    <h1 class="ochrelune-title ochrelune-title--editorial">项目设置</h1>
+    <h1 class="ochrelune-title">项目设置</h1>
     <form class="ochrelune-field">
       <label class="ochrelune-label" for="project-name">项目名称</label>
       <input class="ochrelune-input" id="project-name" name="projectName"
@@ -37,6 +37,8 @@
 ```
 
 以上只演示语义与视觉，不能把示例表单当成已接通保存功能的成品。真实任务需实现保存，静态演示则提供本地反馈并明确模拟。
+
+默认用 `.ochrelune-section` 组织无框内容；确有独立边界时才用 `.ochrelune-panel`。表格滚动使用 `.ochrelune-table-scroll`，需隔离的独立视口才附加 `.ochrelune-table-scroll--bounded`。操作页标题使用 `.ochrelune-title`，`--editorial` 只适合阅读／展示模式。
 
 将 `.ochrelune-root` 放在 body 可覆盖整页；放在局部容器只覆盖该区域。Portal／浮层若挂到 body，而主题只在局部根节点，必须把主题变量也传给浮层根节点。深色属性 `data-ochrelune-theme="dark"` 与 `.ochrelune-root` 放在同一节点；代码不自动切换主题。
 
