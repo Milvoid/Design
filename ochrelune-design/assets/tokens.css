@@ -1,4 +1,4 @@
-/* Ochrelune Design v1.0. Apply class="ochrelune-root" to an application root.
+/* Ochrelune Design v1.2. Apply class="ochrelune-root" to an application root.
    Optional: data-ochrelune-theme="dark" on the same element. No remote assets. */
 .ochrelune-root {
   color-scheme: light;
@@ -34,6 +34,16 @@
   --ochrelune-chart-4: #45413d;
   --ochrelune-chart-5: #756c62;
   --ochrelune-chart-6: #706078;
+  /* Optional data roles. Midpoint is not a missing-value color. */
+  --ochrelune-data-low: #a8452f;
+  --ochrelune-data-mid: #ebe9dd;
+  --ochrelune-data-high: #1f6b62;
+  --ochrelune-data-line-low: #a8452f;
+  --ochrelune-data-line-mid: #82796b;
+  --ochrelune-data-line-high: #1f6b62;
+  --ochrelune-data-baseline: #70685c;
+  --ochrelune-data-missing: #c8c1b5;
+  --ochrelune-data-selection: #2b2925;
   --ochrelune-grid: #e9e4da;
   --ochrelune-zero-line: #aaa092;
   --ochrelune-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -100,6 +110,16 @@
   --ochrelune-chart-4: #e2dace;
   --ochrelune-chart-5: #b2a798;
   --ochrelune-chart-6: #bca3c7;
+  /* Dark starting values; verify in the actual chart. */
+  --ochrelune-data-low: #efaa96;
+  --ochrelune-data-mid: #575047;
+  --ochrelune-data-high: #8ec7b8;
+  --ochrelune-data-line-low: #efaa96;
+  --ochrelune-data-line-mid: #b9afa0;
+  --ochrelune-data-line-high: #8ec7b8;
+  --ochrelune-data-baseline: #b9afa0;
+  --ochrelune-data-missing: #71695e;
+  --ochrelune-data-selection: #f1eee7;
   --ochrelune-grid: #3b352e;
   --ochrelune-zero-line: #817564;
   --ochrelune-shadow-overlay: 0 8px 24px rgb(0 0 0 / 24%);
