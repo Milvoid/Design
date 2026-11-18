@@ -1,0 +1,93 @@
+% Ochrelune PDF 版式（XeLaTeX）。用法：正文第一行 \input{ochrelune-pdf.tex}
+% 需要在主文件之前（或主文件第一行之前）定义好：
+%   \def\ochretitle{文档标题}   \def\ochrefooter{Fennelia · 主题 · 日期}
+% 字体放在同目录 fonts/ 下（assets/fetch-fonts.sh 会下载）。
+\documentclass[11pt]{article}
+\usepackage[a4paper,top=22mm,bottom=24mm,left=22mm,right=22mm,headsep=8mm,footskip=12mm]{geometry}
+\usepackage{fontspec}
+\usepackage[CJKmath=true]{xeCJK}
+\usepackage{xcolor}
+\usepackage{tabularx,booktabs,colortbl,array}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{needspace}
+
+% ---------- 色板（与 ochrelune-design 一致）----------
+\definecolor{paper}{HTML}{FAF9F5}
+\definecolor{oat}{HTML}{F0EEE6}
+\definecolor{card}{HTML}{E8E6DC}
+\definecolor{ink}{HTML}{141413}
+\definecolor{ink2}{HTML}{5E5D59}
+\definecolor{muted}{HTML}{87867F}
+\definecolor{clay}{HTML}{D97757}
+\definecolor{claydark}{HTML}{9F5038}
+\definecolor{olive}{HTML}{788C5D}
+\definecolor{rule}{HTML}{D9D5C8}
+\pagecolor{paper}
+\color{ink}
+
+% ---------- 字体：标题寒蝉锦书宋 Pro Medium，大数字 Source Serif 4，正文霞鹜新晰黑 ----------
+\setmainfont{LXGWNeoXiHei.ttf}[Path=fonts/,AutoFakeBold=1.6]
+\setmonofont{Menlo}[Scale=0.88]
+\setCJKmainfont{LXGWNeoXiHei.ttf}[Path=fonts/,AutoFakeBold=1.6]
+\newfontfamily\serifLatin{ChillJinshuSongMedium.otf}[Path=fonts/]
+\newCJKfontfamily\serifCJK{ChillJinshuSongMedium.otf}[Path=fonts/]
+\newfontfamily\numfont{SourceSerif4.ttf}[Path=fonts/,Numbers=Lining]
+\newcommand{\serif}{\serifLatin\serifCJK}
+\xeCJKsetup{CJKecglue={\hskip 0.2em plus 0.1em}}
+\linespread{1.42}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\providecommand{\ochretitle}{Overview}
+\providecommand{\ochrefooter}{Fennelia}
+\hypersetup{colorlinks=true,linkcolor=claydark,urlcolor=claydark,pdftitle={\ochretitle},pdfauthor={Fennelia}}
+
+% ---------- 标题 ----------
+\titleformat{\section}{\serif\fontsize{21}{28}\selectfont\color{ink}}{\numfont\color{clay}\thesection}{0.7em}{}[\vspace{2pt}{\color{rule}\titlerule[0.6pt]}]
+\titlespacing*{\section}{0pt}{6pt}{12pt}
+\titleformat{\subsection}{\serif\fontsize{14}{20}\selectfont\color{ink}}{}{0em}{}
+\titlespacing*{\subsection}{0pt}{14pt}{4pt}
+
+% ---------- 页脚 ----------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\footnotesize\color{muted}\ochrefooter}
+\fancyfoot[R]{\small\numfont\color{muted}\thepage}
+
+% ---------- 表格 ----------
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\arrayrulecolor{rule}
+\setlength{\aboverulesep}{0.5ex}
+\setlength{\belowrulesep}{0.6ex}
+\renewcommand{\arraystretch}{1.18}
+\newcommand{\thd}[1]{{\footnotesize\color{muted}#1}}
+
+% ---------- 组件 ----------
+% todo：她要做或要决定的事（燕麦底 + 左侧陶土竖线）
+\newtcolorbox{todo}[1][你要做的]{enhanced,breakable,colback=oat,colframe=oat,boxrule=0pt,arc=3pt,
+  left=12pt,right=12pt,top=8pt,bottom=8pt,
+  borderline west={2.4pt}{0pt}{clay},
+  title={\serif\color{claydark}#1},coltitle=claydark,colbacktitle=oat,attach title to upper,after title={\par\smallskip}}
+% advice：我的建议（纸面底 + 细边框）
+\newtcolorbox{advice}[1][我的建议]{enhanced,breakable,colback=paper,colframe=rule,boxrule=0.6pt,arc=3pt,
+  left=12pt,right=12pt,top=8pt,bottom=8pt,
+  title={\serif\color{ink}#1},attach title to upper,after title={\par\smallskip}}
+
+% 元信息行：\meta{截止}{执行会话}{材料}
+\newcommand{\metaline}[2]{\par\noindent\makebox[0.15\linewidth][l]{\small\color{muted}#1}\parbox[t]{0.85\linewidth}{\small\raggedright #2}\par\vspace{3pt}}
+\newcommand{\meta}[3]{{\setlength{\parskip}{0pt}\metaline{截止}{#1}\metaline{执行会话}{#2}\metaline{材料}{#3}}\vspace{4pt}}
+
+\setlist[itemize]{leftmargin=1.3em,itemsep=0.25em,topsep=0.3em,label={\color{clay}\textbullet}}
+\setlist[enumerate]{leftmargin=1.5em,itemsep=0.3em,topsep=0.3em,label={\numfont\color{claydark}\arabic*.}}
+
+% 封面大数字（一行最多四个）：\bignum{6}{天后答辩\\11-24 周二}
+\newcommand{\bignum}[2]{\begin{minipage}[t]{0.23\linewidth}{\numfont\fontsize{40}{40}\selectfont\color{ink}#1}\par\vspace{4pt}{\small\color{ink2}#2}\end{minipage}}
+\newcommand{\fpath}[1]{{\small\color{ink2}#1}}
+\newcommand{\hairline}{{\color{rule}\rule{\linewidth}{0.6pt}}\par}

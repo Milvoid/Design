@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ochrelune PDF"
+  short_description: "暖白纸面、宋体标题、陶土强调的 XeLaTeX 简报 PDF：封面大数字与待办表、待办卡片、建议框，给本人阅读"
+  default_prompt: "使用 $ochrelune-pdf 把当前事项整理成一份 Overview PDF，先给结论和待办，再给依据和建议。"
