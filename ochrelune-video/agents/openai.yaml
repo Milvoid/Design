@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ochrelune Video"
+  short_description: "暖白纸面、宋体标题、线描插画与油画笔触的产品介绍短片，Remotion 逐帧渲染，导演式分阶段审阅"
+  default_prompt: "使用 $ochrelune-video 为当前项目制作一支介绍短片，先交分镜和 6 张风格样张。"
