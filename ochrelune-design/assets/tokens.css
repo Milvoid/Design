@@ -46,8 +46,9 @@
   --ochrelune-data-selection: #2b2925;
   --ochrelune-grid: #e9e4da;
   --ochrelune-zero-line: #aaa092;
-  --ochrelune-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --ochrelune-font-serif: Georgia, "Songti SC", "STSong", serif;
+  --ochrelune-font-sans: "Ochrelune Sans", "LXGW Neo XiHei", "霞鹜新晰黑", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --ochrelune-font-serif: "Ochrelune Serif", "ChillJinshuSong", "寒蝉锦书宋", Georgia, "Songti SC", "STSong", serif;
+  --ochrelune-font-numeral: "Ochrelune Numeral", "Source Serif 4", Georgia, serif;
   --ochrelune-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --ochrelune-text-xs: .75rem;
   --ochrelune-text-sm: .875rem;

@@ -1,0 +1,33 @@
+/* Ochrelune 推荐字体的自托管模板。
+ * 本包不随附字体文件：按 OchreluneDesign.md §5.1 的链接下载，放进项目自己的字体目录，
+ * 按实际路径修改 url()。生产环境建议先按页面用字子集化（中文全量文件 7–24 MB）。
+ * 未提供文件时，tokens.css 中的字体栈会回落到系统字体。 */
+
+@font-face {
+  font-family: "Ochrelune Serif";            /* 寒蝉锦书宋 Pro Medium，SIL OFL 1.1 */
+  src: local("ChillJinshuSongMedium"),
+       url("./fonts/ChillJinshuSongMedium.woff2") format("woff2"),
+       url("./fonts/ChillJinshuSongMedium.otf") format("opentype");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ochrelune Sans";             /* 霞鹜新晰黑 Regular，IPA Font License 1.0 */
+  src: local("LXGWNeoXiHei"),
+       url("./fonts/LXGWNeoXiHei.woff2") format("woff2"),
+       url("./fonts/LXGWNeoXiHei.ttf") format("truetype");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ochrelune Numeral";          /* Source Serif 4 可变字体，SIL OFL 1.1 */
+  src: url("./fonts/SourceSerif4-Variable.woff2") format("woff2"),
+       url("./fonts/SourceSerif4[opsz,wght].ttf") format("truetype");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}

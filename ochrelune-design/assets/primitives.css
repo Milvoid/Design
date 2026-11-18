@@ -15,6 +15,7 @@
 .ochrelune-root .ochrelune-prose { max-width: var(--ochrelune-reading-width); line-height: 1.8; overflow-wrap: anywhere; }
 .ochrelune-root .ochrelune-title { font-size: var(--ochrelune-text-title); font-weight: 600; line-height: 1.3; margin: 0 0 var(--ochrelune-space-4); }
 .ochrelune-root .ochrelune-title--editorial { font-family: var(--ochrelune-font-serif); font-size: var(--ochrelune-text-display); font-weight: 400; }
+.ochrelune-root .ochrelune-numeral { font-family: var(--ochrelune-font-numeral); font-weight: 500; font-variant-numeric: lining-nums proportional-nums; line-height: 1; }
 .ochrelune-root .ochrelune-section-title { font-size: var(--ochrelune-text-xl); font-weight: 600; line-height: 1.4; margin: var(--ochrelune-space-8) 0 var(--ochrelune-space-4); }
 .ochrelune-root .ochrelune-muted { color: var(--ochrelune-text-muted); }
 .ochrelune-root .ochrelune-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: var(--ochrelune-space-2); }

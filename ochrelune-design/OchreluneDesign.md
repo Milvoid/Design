@@ -128,15 +128,32 @@
 
 - **Sans 无衬线**：导航、按钮、标签、表单、表格、工具界面的正文与标题。
 - **Serif 衬线**：阅读或展示页面的主标题，少量较长阅读内容；不铺满控件。
-- **Mono 等宽**：代码、原始表达式、标识符、需要对齐的机器输出。普通数字优先使用无衬线加 `tabular-nums`。
+- **Numeral 展示数字**：页面里一两个需要被记住的大数字（统计结论、关键指标）。表格和控件里的数字仍用无衬线加 `tabular-nums`。
+- **Mono 等宽**：代码、原始表达式、标识符、需要对齐的机器输出。
 
-默认使用系统字体，包内不携带专有字体。可在许可和性能允许时自托管合适的开源字体；不要把 Anthropic Serif、Styrene 等名字写进 CSS 就宣称复刻完成。实际部署要检查 fallback 和中英文混排。
+### 5.1.1 推荐字体方案（2026-11-18 选定）
 
-推荐基础栈：
+| 职责 | 字体 | 用在哪里 | 授权与来源 |
+|---|---|---|---|
+| Serif 标题 | **寒蝉锦书宋 Pro** Medium | 中文标题，以及标题里的西文、标点 | SIL OFL 1.1 · [Warren2060/ChillJinshuSong](https://github.com/Warren2060/ChillJinshuSong) |
+| Numeral 大数字 | **Source Serif 4**，wght 500 / opsz 48 左右 | 展示型大数字及其千分位 | SIL OFL 1.1 · [adobe-fonts/source-serif](https://github.com/adobe-fonts/source-serif) |
+| Sans 正文 | **霞鹜新晰黑** Regular | 正文、说明、标签、控件，包括其中的西文和数字 | IPA Font License 1.0 · [lxgw/LxgwNeoXiHei](https://github.com/lxgw/LxgwNeoXiHei) |
+
+这套组合用于展示、阅读和对外物料（介绍视频、pitch book、报告封面、编辑式页面）时效果最好：锦书宋的粗竖让短标题在缩小画面里仍然醒目，Source Serif 4 的数字与锦书宋笔画重量接近，新晰黑字面饱满，长段说明读起来不累。纯操作型工具可以只用新晰黑，或继续用系统字体。
+
+部署要点：
+
+- 本包不携带字体文件。按上表链接下载后自托管，参考 [assets/fonts.css](assets/fonts.css) 的 `@font-face` 模板，以别名 `Ochrelune Serif / Sans / Numeral` 引入；未加载时字体栈回落到系统字体。
+- 中文字体文件较大（锦书宋 Pro 约 24 MB、新晰黑约 7 MB），网页上线前按实际用字子集化并转 woff2；视频、PPT 等离线物料直接使用原文件。
+- 新增文案后检查锦书宋是否缺字，尤其是生僻字和全角标点；缺字会回落到系统宋体，混排时很显眼。
+- 不要把 Anthropic Serif、Styrene 等名字写进 CSS 就宣称复刻完成。
+
+基础栈：
 
 ```css
---ochrelune-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
---ochrelune-font-serif: Georgia, "Songti SC", "STSong", serif;
+--ochrelune-font-sans: "Ochrelune Sans", "LXGW Neo XiHei", "霞鹜新晰黑", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+--ochrelune-font-serif: "Ochrelune Serif", "ChillJinshuSong", "寒蝉锦书宋", Georgia, "Songti SC", "STSong", serif;
+--ochrelune-font-numeral: "Ochrelune Numeral", "Source Serif 4", Georgia, serif;
 --ochrelune-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 ```
 
@@ -502,6 +519,7 @@ WCAG 2.2 AA 的目标尺寸条款采用 24×24 CSS px 或符合其间距等例�
 - `SKILL.md`：代理入口、任务边界、读取路由和工作流程。
 - `OchreluneDesign.md`：完整的跨项目设计规范，即本文。
 - `assets/tokens.css`：可复用的颜色、字体、尺度和主题起点。
+- `assets/fonts.css`：推荐字体（§5.1.1）的自托管 `@font-face` 模板，不含字体文件。
 - `assets/primitives.css`：显式类名与作用域的基础组件示例。
 - `references/charts.md`：跨领域的数据语义、色带、图形与交互示例。
 - `assets/chart-colors.mjs`：可选、无依赖的色带插值与分组身份映射。
