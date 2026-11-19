@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>示例 · 超算集群低效作业识别系统</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="deck.css">
+</head>
+<body data-short-title="超算集群低效作业识别系统">
+<main id="deck">
+
+<!-- 1 封面 cover -->
+<section class="slide layout-cover">
+  <div>
+    <div class="kicker">“交我创”智能体创新大赛 · 组委命题赛道</div>
+    <h1>超算集群<br>低效作业识别系统</h1>
+    <p class="lede">帮超算运维找出申请多、用得少的作业，并给出可以核查的依据</p>
+    <div class="byline">队长：詹承烨（上海交通大学安泰经济与管理学院）</div>
+  </div>
+  <svg class="art draw" viewBox="0 0 520 520" width="620" height="620" aria-hidden="true">
+    <path class="fill" d="M86 140 C120 40 400 30 460 150 C520 280 470 470 300 480 C140 490 40 300 86 140Z" fill="#788C5D"/>
+    <rect class="ink" x="96" y="96" width="320" height="320" rx="18" style="fill:#FAF9F5"/>
+    <path class="ink" d="M136 136 H376 V376 H136 Z M176 136 V376 M216 136 V376 M256 136 V376 M296 136 V376 M336 136 V376 M136 176 H376 M136 216 H376 M136 256 H376 M136 296 H376 M136 336 H376"/>
+    <rect class="fill" x="258" y="258" width="36" height="36" fill="#D97757"/>
+  </svg>
+  <aside class="notes">开场一句话：这是一个帮超算运维找出低效作业的智能体。</aside>
+</section>
+
+<!-- 2 text：纯文字内容，小主题 + 段落 + 引导式要点 -->
+<section class="slide">
+  <h1>申请多、用得少的作业，正在悄悄占住整台节点</h1>
+  <p class="lede">以合成作业 #420077 为例：申请 64 核，两小时内平均只用 0.99 核</p>
+  <div class="body">
+    <div class="topic">
+      <h3>问题出在哪里</h3>
+      <p class="indent">超算按申请量分配资源。作业一旦申请了 64 核，这 64 个核在它运行期间就不能分给别人，哪怕程序实际只用到了一个核。排队的用户看到的是“资源已满”，而节点上大部分核其实空着。</p>
+    </div>
+    <div class="topic">
+      <h3>为什么现在很难发现</h3>
+      <ul>
+        <li data-step="1"><em>数据分散</em>：申请记录在 Slurm 里，实际用量在监控曲线里，运维要在两个系统之间来回比对。</li>
+        <li data-step="2"><em>数量太多</em>：同一批就有 160 项作业，逐项打开监控查看，一个值班员一上午也查不完。</li>
+        <li data-step="3"><em>原因不一</em>：有的是没开多线程，有的是在等 I/O，判断需要看完整段曲线，不能只看一个时刻。</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">先讲个例的反差，再按三下讲为什么人工很难发现。</aside>
+</section>
+
+<!-- 3 split：图文结合，左文右图 -->
+<section class="slide">
+  <h1>申请量和实际用量放在一起，浪费一眼可见</h1>
+  <p class="lede">合成作业 #420077 · 16:00–18:00 · 61 个监控采样点</p>
+  <div class="body">
+    <div class="split wide-right">
+      <div>
+        <div class="topic">
+          <h3>怎么读这张图</h3>
+          <p class="indent">上方墨线是作业申请的 64 核，下方橄榄色线是每个采样时刻实际在用的核数。两条线之间的面积，就是被占住却没被用上的计算资源。</p>
+          <ul>
+            <li><em>平均用量</em>：0.99 核，P95 也只有 1.13 核。</li>
+            <li><em>闲置估算</em>：约 <mark>126 核时</mark>，相当于两台 64 核节点空转一小时。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="shot" style="padding:40px 48px 32px">
+        <svg viewBox="0 0 900 520" width="100%" style="font-family:var(--font-body);overflow:visible">
+          <rect x="60" y="40" width="760" height="400" fill="rgba(217,119,87,.14)"/>
+          <line x1="60" y1="40" x2="820" y2="40" stroke="#141413" stroke-width="3"/>
+          <path d="M60 438 C140 436 220 440 300 437 S460 439 540 436 S700 440 820 437" fill="none" stroke="#788C5D" stroke-width="6"/>
+          <line x1="60" y1="440" x2="820" y2="440" stroke="#D9D5C8" stroke-width="2"/>
+          <text x="60" y="28" font-size="30" fill="#141413">申请 64 核</text>
+          <text x="820" y="418" font-size="30" fill="#2E2D2A" text-anchor="end">实际约 1 核</text>
+          <text x="330" y="250" font-size="34" fill="#9F5038">约 126 核时闲置</text>
+          <text x="60" y="490" font-size="28" fill="#5E5D59">16:00</text>
+          <text x="760" y="490" font-size="28" fill="#5E5D59">18:00</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 section：章节页 -->
+<section class="slide layout-section">
+  <div class="section-no">02</div>
+  <h1>系统怎么工作</h1>
+</section>
+
+<!-- 5 flow：流程，每个节点带说明 -->
+<section class="slide">
+  <h1>五步找出该先检查的作业，处置决定留给运维</h1>
+  <p class="lede">系统只读取数据、给出判断和建议，不直接改动任何作业</p>
+  <div class="body">
+    <div class="flow">
+      <div class="node" data-step="1"><svg class="art draw" viewBox="-82 -82 164 164"><path d="M-54 -35 C-29 -75 34 -68 59 -43 Q82 -10 68 37 Q44 73 -13 65 Q-60 63 -70 32 Q-78 -8 -54 -35 Z" fill="#dce2d3" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><g transform="translate(-65 -67)"><g transform="translate(14 10) rotate(-10 38 51)"><path d="M0 4 Q35.72 5 74 0 L77 99 Q44.08 103 1 102 Z" fill="#F0EEE6" stroke="#141413" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round" /></g><g transform="translate(37 27) rotate(4 43 44)"><path d="M0 4 Q40.41 5 84 0 L87 85 Q49.87 89 1 88 Z" fill="#FAF9F5" stroke="#141413" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round" /></g><path d="M51 40 q21.45 1 39 -2" fill="none" stroke="#5E5D59" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M48 93 L47 60 M47 93 Q77 94 111 91" fill="none" stroke="#5E5D59" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round" /><path d="M51 85 l10 -4 11 2 8 -17 8 6 11 -13 9 1" fill="none" stroke="#141413" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round" /></g></svg><b>读取记录</b>从 Slurm 读申请核数、GPU、内存和时长，从监控读同时段曲线。</div>
+      <div class="arrow">→</div>
+      <div class="node" data-step="2" data-morph="step-check"><svg class="art draw" viewBox="-82 -82 164 164"><g transform="translate(-65 -67)"><path d="M14 24 L80 16 Q85 16 86 21 L94 89 L25 99 Q19 99 18 93 Z" fill="#F0EEE6" stroke="#141413" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round" /><path d="M23 32 L74 25 L80 81 L30 89 Z" fill="#FAF9F5" stroke="#141413" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M39 31 l7 54 M56 28 l7 55 M26 50 l50 -7 M28 70 l50 -7" fill="none" stroke="#5E5D59" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round" /><g transform="translate(81 80)"><path d="M15 18.75 L49 45 Q54 47 56 43 Q57 41 53 37 L20.75 13.25 Z" fill="#F0EEE6" stroke="#141413" stroke-width="3.3" stroke-linejoin="round" stroke-linecap="round" /><path d="M-25 -1 C-25 -15.5 -15.25 -25 0 -25 C15 -26 25 -14.49 25 0 C24.75 15.75 13.75 25 -1 24.25 C-15 25 -26 14.49 -25 -1Z" fill="#FAF9F5" stroke="#141413" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round" /><path d="M-19.75 -4 Q-17.75 -16 -5.5 -18.25" fill="none" stroke="#5E5D59" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" /></g><path d="M67 79 l26 -3 M80 66 l3 26" fill="none" stroke="#5E5D59" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" /></g></svg><b>检查用量</b>先确认监控够不够完整，再判断低用量是否持续，归入五类低效之一。</div>
+      <div class="arrow">→</div>
+      <div class="node" data-step="3"><svg class="art draw" viewBox="-82 -82 164 164"><g transform="translate(-65 -67)"><path d="M15 18 Q16 63 16 112 Q71 110 126 111" fill="none" stroke="#141413" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round" /><path d="M24 36 Q70 37 119 34 L119 95 Q98 96 78 91 Q60 98 24 94 Z" fill="#F0EEE6" stroke="none" stroke-width="0" stroke-linejoin="round" stroke-linecap="round" /><path d="M24 36 Q70 37 119 34" fill="none" stroke="#141413" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round" /><path d="M25 94 Q48 96 63 94 T83 92 Q102 96 119 95" fill="none" stroke="#141413" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M84 45 l-1 40 M78 51 l6 -7 5 7 M77 78 l6 8 6 -8" fill="none" stroke="#5E5D59" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round" /></g></svg><b>估算闲置</b>按有效观测时段，把闲置核数乘以时长累加成核时、卡时。</div>
+      <div class="arrow">→</div>
+      <div class="node" data-step="4"><svg class="art draw" viewBox="-82 -82 164 164"><g transform="translate(-65 -67)"><g transform="translate(16 25) rotate(-7 40 46)"><path d="M0 4 Q37.59 5 78 0 L81 89 Q46.4 93 1 92 Z" fill="#F0EEE6" stroke="#141413" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round" /></g><g transform="translate(27 17) rotate(3 38.5 48)"><path d="M0 4 Q36.19 5 75 0 L78 93 Q44.66 97 1 96 Z" fill="#FAF9F5" stroke="#141413" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round" /></g><path d="M39 44 q26.95 1 49 -2" fill="none" stroke="#5E5D59" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M39 59 q18.70 1 34 -2" fill="none" stroke="#5E5D59" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M39 74 q21.45 1 39 -2" fill="none" stroke="#5E5D59" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" /><g transform="translate(96 70) rotate(33)"><path d="M0 -39 Q3 -48 8 -42 L8 9 L3.8 24 L0 10 Z" fill="#F0EEE6" stroke="#141413" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M0 7 Q4 9 8 7 M3.8 21 l0 2 M3 -34 l0 32" fill="none" stroke="#141413" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" /></g><path d="M54 96 q8 -6 14 -2 q7 4 17 -1" fill="none" stroke="#5E5D59" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round" /></g></svg><b>起草建议</b>模型引用具体指标起草排查建议，例如用 1、2、4 核对比试跑。</div>
+      <div class="arrow">→</div>
+      <div class="node" data-step="5"><svg class="art draw" viewBox="-82 -82 164 164"><g transform="translate(-65 -67)"><g transform="translate(12 23) rotate(-4 48 47)"><path d="M0 4 Q45.12 5 94 0 L97 91 Q55.67 95 1 94 Z" fill="#F0EEE6" stroke="#141413" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round" /></g><g transform="translate(21 17) rotate(-2 44.5 50)"><path d="M0 4 Q41.83 5 87 0 L90 97 Q51.62 101 1 100 Z" fill="#FAF9F5" stroke="#141413" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round" /></g><path d="M34 35 q20.35 1 37 -2" fill="none" stroke="#5E5D59" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M34 49 q29.70 1 54 -2" fill="none" stroke="#5E5D59" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M39 72 Q60 69 85 71 L86 92 L41 95 Z" fill="#FAF9F5" stroke="#5E5D59" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><g transform="translate(46 73) scale(0.8)"><path d="M0 8 Q4 13 9 17 Q16 5 26 -4" fill="none" stroke="#D97757" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" /></g><g transform="translate(100 78) rotate(36)"><path d="M0 -39 Q3 -48 8 -42 L8 9 L3.8 24 L0 10 Z" fill="#F0EEE6" stroke="#141413" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M0 7 Q4 9 8 7 M3.8 21 l0 2 M3 -34 l0 32" fill="none" stroke="#141413" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" /></g></g></svg><b>运维确认</b>按闲置量排序成清单；暂停等操作必须由运维核查影响、写明理由后确认。</div>
+    </div>
+    <div class="topic" data-step="6" style="margin-top:28px">
+      <h3>一次运行交给运维的是什么</h3>
+      <p class="indent">一张按闲置量排序的清单。每项作业点开能看到用量曲线、低效类型与依据、闲置核时和排查建议；<em>系统不会自己暂停或修改作业</em>。</p>
+    </div>
+  </div>
+  <aside class="notes">按五下逐个画出节点并讲解。下一页“检查用量”会平滑移到页脚上方的流程条里。</aside>
+</section>
+
+<!-- 6 columns：三栏 -->
+<section class="slide">
+  <h1>判断依据分三层，避免把正常作业误报成低效</h1>
+  <p class="lede">每一条判断都能回到原始记录和监控曲线</p>
+  <div class="body">
+    <div class="columns" style="--n:3">
+      <div><h3><svg viewBox="0 0 64 64" class="art"><path d="M10 14 Q30 12 50 11 L52 52 Q31 54 11 53 Z" fill="#FAF9F5" stroke="#141413" stroke-width="2.8"/><path d="M17 40 l7 -6 6 3 6 -10 7 4" fill="none" stroke="#5E5D59" stroke-width="2.1"/><path d="M18 23 q11 1 20 -1" fill="none" stroke="#5E5D59" stroke-width="2"/></svg>数据够不够</h3>
+        <p class="indent">采样点少于观测窗口的一半、或正处在启动预热期的作业，先标为“数据不足”，不参与低效判断，并提示补齐监控。</p>
+        <p class="note"><em>例</em>：一项作业只有 18 个采样点、窗口要求 61 个，结论写“数据不足”。</p></div>
+      <div><h3><svg viewBox="0 0 64 64" class="art"><path d="M26 6 C14 6 6 14 6 26 C6 38 14 46 26 46 C38 46 46 38 46 26 C46 13 38 6 26 6Z" fill="#FAF9F5" stroke="#141413" stroke-width="2.8"/><path d="M38 40 L55 56 Q58 58 59 55 L44 37 Z" fill="#F0EEE6" stroke="#141413" stroke-width="2.6"/><path d="M14 30 q6 -1 12 1 q6 1 12 0" fill="none" stroke="#5E5D59" stroke-width="2"/></svg>低得够不够久</h3>
+        <p class="indent">只有低用量持续覆盖大部分观测时段才判为低效。短暂的空闲（例如读写数据的几分钟）不算，避免把正常的阶段性波动当成浪费。</p>
+        <p class="note"><em>例</em>：#420077 在两小时里没有一段用量超过 2 核。</p></div>
+      <div><h3><svg viewBox="0 0 64 64" class="art"><path d="M8 12 Q31 10 54 11 L55 54 Q31 56 9 55 Z" fill="#F0EEE6" stroke="#141413" stroke-width="2.8"/><path d="M15 22 L48 21 L48 44 Q32 45 15 45 Z" fill="rgba(217,119,87,.25)" stroke="none"/><path d="M15 21 q17 1 33 0 M15 45 q17 -1 33 0" fill="none" stroke="#5E5D59" stroke-width="2.1"/></svg>浪费有多大</h3>
+        <p class="indent">按有效观测时段估算闲置核时和卡时，清单按浪费量从大到小排序，运维从最值得处理的作业看起。</p>
+        <p class="note"><em>例</em>：#420077 约 126 核时，排在清单第一位。</p></div>
+    </div>
+  </div>
+  <div class="progress"><span>读取记录</span><span class="on" data-morph="step-check">检查用量</span><span>估算闲置</span><span>起草建议</span><span>运维确认</span></div>
+</section>
+
+<!-- 7 table：表格 + 结论 -->
+<section class="slide">
+  <h1>合成测试中，观测完整的低效作业几乎全被找出</h1>
+  <p class="lede">召回率 = 已知某类低效作业中被正确识别的比例；只统计监控完整的作业</p>
+  <div class="body">
+    <table>
+      <tr><th>低效类型</th><th>识别依据</th><th class="n">常规条件</th><th class="n">改变资源与采样</th></tr>
+      <tr><td>多核申请、单核运行</td><td>CPU 用量持续低于申请量的 5%</td><td class="n">100%</td><td class="n">99.33%</td></tr>
+      <tr><td>GPU 长期空闲</td><td>GPU 利用率持续低于 5%</td><td class="n">100%</td><td class="n">92.00%</td></tr>
+      <tr><td>内存申请过大</td><td>内存峰值低于申请量的 20%</td><td class="n">示例值</td><td class="n">示例值</td></tr>
+      <tr><td>数据不足</td><td>采样点不足或处于预热期</td><td class="n">单独标记</td><td class="n">单独标记</td></tr>
+    </table>
+    <p class="note" style="margin-top:32px">常规组 960 项、稳健组 800 项为完整观测样本数；约 20% 的作业因观测不足被单独标记，不计入召回率。内存一行为示例值，实际以设计书定稿为准。</p>
+  </div>
+</section>
+
+<!-- 8 figure：大数字带口径 -->
+<section class="slide">
+  <h1>同批 160 项作业，两小时内闲置约 1,435 核时</h1>
+  <p class="lede">160 项合成作业，各取最长两小时的有效观测</p>
+  <div class="body">
+    <div class="figures" style="--n:3">
+      <div><span class="num">1,435</span><span class="unit">核时</span><div class="caption">CPU 闲置。约等于一台 64 核节点空转 22 小时。</div></div>
+      <div><span class="num">72.7</span><span class="unit">卡时</span><div class="caption">GPU 闲置。集中在少数长期空闲的训练作业上。</div></div>
+      <div><span class="num">126</span><span class="unit">核时</span><div class="caption">其中 #420077 一项的贡献，是清单里排第一的作业。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 结尾 closing -->
+<section class="slide layout-closing">
+  <div>
+    <h1>把算力还给科研</h1>
+    <p class="lede">下次按实际用量申请，空出的核留给排队的人</p>
+    <div class="byline">超算集群低效作业识别系统 · 队长：詹承烨</div>
+  </div>
+  <div></div>
+</section>
+
+</main>
+<script type="module" src="deck.js"></script>
+</body>
+</html>

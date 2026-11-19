@@ -1,0 +1,8 @@
+/* 字体文件放在 ./fonts/。建议先按全篇用字子集化成 woff2（见 ochrelune-video 的 font-subset.py）；
+   没有 woff2 时也可以直接放原始 otf/ttf。全部缺失时退回系统字体。 */
+@font-face { font-family: "Ochrelune Serif"; font-weight: 400 600; font-display: block;
+  src: url("fonts/title.woff2") format("woff2"), url("fonts/ChillJinshuSongMedium.otf") format("opentype"), local("ChillJinshuSongMedium"); }
+@font-face { font-family: "Ochrelune Sans"; font-weight: 300 700; font-display: block;
+  src: url("fonts/body.woff2") format("woff2"), url("fonts/LXGWNeoXiHei.ttf") format("truetype"), local("LXGWNeoXiHei"); }
+@font-face { font-family: "Ochrelune Numeral"; font-weight: 200 900; font-display: block;
+  src: url("fonts/number.woff2") format("woff2"), url("fonts/SourceSerif4.ttf") format("truetype"); }

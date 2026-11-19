@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ochrelune Slides"
+  short_description: "暖白纸面、宋体标题与线描插画的 HTML 演示文稿：标题写结论、网格排版、点击分步，可放映并导出 PDF"
+  default_prompt: "使用 $ochrelune-slides 为当前内容制作一套演示文稿，先交“标题即结论”的提纲和五张样张。"

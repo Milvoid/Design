@@ -32,7 +32,8 @@ description: 用代码制作暖白纸面、宋体标题、手绘线描插画和�
 ## 按需读取
 
 - **写分镜前**：[references/narrative.md](references/narrative.md)（七步叙事、分镜表格式、数字口径）。
-- **定画面**：[references/visual.md](references/visual.md)（色板、字体与字号、五种构图、插画、界面镜头）。
+- **定画面**：[references/visual.md](references/visual.md)（色板、字体与字号、五种构图、界面镜头）。
+- **画插画**：[references/illustration.md](references/illustration.md)（物件、手绘形状、线宽、填色、陶土与底色块、尺寸；视频和 slides 共用）。
 - **做动效**：[references/motion.md](references/motion.md)（缓动、时长、转场、镜头推近、节奏）。
 - **加笔触层**：[references/brush.md](references/brush.md)（p5.brush 笔毛印模、三种用法、确定性）。
 - **搭工程、渲染、配乐**：[references/pipeline.md](references/pipeline.md)（Remotion + iframe 舞台、录屏取景、字体子集、ffmpeg 混音）。
