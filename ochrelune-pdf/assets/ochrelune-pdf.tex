@@ -1,6 +1,6 @@
 % Ochrelune PDF 版式（XeLaTeX）。用法：正文第一行 \input{ochrelune-pdf.tex}
 % 需要在主文件之前（或主文件第一行之前）定义好：
-%   \def\ochretitle{文档标题}   \def\ochrefooter{Fennelia · 主题 · 日期}
+%   \def\ochretitle{文档标题}   \def\ochrefooter{主题 · 日期}（页脚不写署名）
 % 字体放在同目录 fonts/ 下（assets/fetch-fonts.sh 会下载）。
 \documentclass[11pt]{article}
 \usepackage[a4paper,top=22mm,bottom=24mm,left=22mm,right=22mm,headsep=8mm,footskip=12mm]{geometry}
@@ -44,7 +44,7 @@
 \setlength{\parskip}{0.55em}
 
 \providecommand{\ochretitle}{Overview}
-\providecommand{\ochrefooter}{Fennelia}
+\providecommand{\ochrefooter}{\ochretitle}
 \hypersetup{colorlinks=true,linkcolor=claydark,urlcolor=claydark,pdftitle={\ochretitle},pdfauthor={Fennelia}}
 
 % ---------- 标题 ----------
