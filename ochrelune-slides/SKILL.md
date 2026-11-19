@@ -36,6 +36,9 @@ description: 用 HTML 制作暖白纸面、宋体标题、线描插画的演示�
 7. **图必须有信息**：插画和图标都按 ochrelune 插画设计语言现画（[illustration.md](../ochrelune-video/references/illustration.md)），不用网上的线性图标；截图裁剪后加圆角和柔和阴影并标注；图表直接标注数据，不用图例。
 8. **动画由讲者触发**：分步呈现、插画描边生长、同一元素跨页平滑移动；不自动播放，不用飞入、弹跳、旋转。
 9. **单页可读、缩小可辨**：不听讲解单看一页能读懂；整套缩成缩略图后结构仍然清楚。
+10. **能画成图就画成图**：资金流、时间轴、瀑布图、分界图、决策树代替文字块，细节放讲稿（[imagery.md](references/imagery.md)）。
+11. **文字连贯、讲人话**：每页承接上一页，术语和符号第一次出现时讲清；学术汇报要有公式和方法细节（[narrative.md](references/narrative.md)）。
+12. **结尾**：讨论问题在前，Apple Event 风格总结页永远是最后一页（[summary-page.md](references/summary-page.md)）。
 
 ## 按需读取
 
@@ -46,6 +49,7 @@ description: 用 HTML 制作暖白纸面、宋体标题、线描插画的演示�
 - **分步与转场动画**：[references/motion.md](references/motion.md)
 - **HTML 工程、放映、导出 PDF**：[references/pipeline.md](references/pipeline.md)
 - **审阅与检查清单**：[references/review.md](references/review.md)
+- **Apple Event 风格总结页**：[references/summary-page.md](references/summary-page.md)
 
 ## 制作流程
 
@@ -54,7 +58,7 @@ description: 用 HTML 制作暖白纸面、宋体标题、线描插画的演示�
 3. **全篇**：按提纲逐页做，同类页面复用同一版式。讲稿写进每页的 `<aside class="notes">`。
 4. **动画**：只给需要分步讲的页面加 `data-step`，插画用描边生长，章节页加笔触。
 5. **导出与检查**：`node export.mjs` 导出 PDF 和缩略图总览，按 review.md 的清单逐项过，再做投影模拟和缩小测试。
-6. **交付**：HTML 文件夹（含子集化字体，离线可放映）+ PDF。建议用自己的电脑接投影放映。
+6. **交付**：HTML 离线放映包（zip，含子集化字体和 serve.mjs）+ PDF。建议用自己的电脑接投影放映，PDF 作现场备用。
 
 ## 调用示例
 
