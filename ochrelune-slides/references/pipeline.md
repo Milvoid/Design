@@ -8,7 +8,7 @@ my-deck/
   deck.css       色板、字体角色、网格、版式库、分步与打印样式（来自 assets/deck/）
   deck.js        缩放、翻页、分步、描边生长、跨页平滑移动、讲者备注、总览
   fonts.css      三个字体角色的 @font-face
-  fonts/         title / body / number 三个字体文件（建议子集化成 woff2）
+  fonts/         title / body / number 三个角色的原字库，或已覆盖本篇文字的 WOFF2
   img/           截图（2x）、插画 SVG、预渲染的笔触 PNG
 ```
 
@@ -35,19 +35,26 @@ my-deck/
 - 页脚自动生成（`<body data-short-title="…">` 设短题名），封面、章节、结尾不显示。
 - 流程条：`<div class="progress">`，当前步骤加 `class="on"`。
 
-## 放映
+## 打包（制作机）
 
-浏览器出于安全限制不允许 `file://` 页面加载字体文件，所以要用本地服务器打开：
+在 [assets/](../assets/) 目录下运行以下命令。首次配置时安装 Node 依赖，字体子集由 HarfBuzz 生成。
 
 ```bash
-node serve.mjs my-deck        # 打印放映地址，浏览器打开后按 F 全屏
+npm install
+node bundle.mjs my-deck 交付/index.html
 ```
 
-键位：→ / 空格 / PageDown / Enter 下一步，← / PageUp 上一步，Home / End 首尾页，N 讲者备注，O 缩略图总览（点击跳页），F 全屏。翻页笔发送的是 PageDown / PageUp，可以直接用。地址栏 `#/页码` 记住位置。
+通用用法为 `node bundle.mjs my-deck 输出.html`。路径相对于当前工作目录，成品与源 `my-deck/index.html` 分开存放。脚本内联样式、放映脚本、本地模块和图片，把全篇文字、备注、页脚与步骤提示用到的字符打进 WOFF2，再通过 data URI 嵌入字体。改文案后重新打包。
 
-建议用自己的电脑接投影放映，提前在投影上走一遍，确认字体、分步和平滑移动都正常。教室电脑通常只有 PowerPoint 或 PDF 阅读器，未必能起本地服务，PDF 作为现场备用。
+- 按 `fonts.css` 的文件名将字库放入 `my-deck/fonts/`。仓库样例只带字体声明，可以用 `OCHRELUNE_FONTS=/path/to/fonts node bundle.mjs deck 示例.html` 指向制作机上的三个原字库（`ChillJinshuSongMedium.otf`、`LXGWNeoXiHei.ttf`、`SourceSerif4.ttf`）。复用旧 WOFF2 前确认它覆盖新文案，新增汉字时优先用原字库重新生成。
+- 图片用 `<img src="…">` 或 CSS 的 `url(…)` 引用本地文件。需逐笔绘制的 SVG 保留在 HTML 中。放映脚本从页内读取数据，把运行时请求的内容在制作阶段写入课件。
+- 体积可参考两份实包：9 页样例约 0.44 MiB；17 页课程 Pre 含一张 3840×2160 总结图，约 1.69 MiB。长边至少 3840 像素且超过 512 KiB 的 PNG/JPEG 会尝试转为同分辨率 WebP，PNG 用无损压缩，仅在体积更小时采用。PDF 从原工程导出，使用原图。
 
-**离线放映包**：把 HTML 文件夹（含字体、媒体和 `serve.mjs`）打成 zip，另一台 Mac 解压后 `node serve.mjs` 即可放映；没有 Node 时在文件夹里运行 `python3 -m http.server 8765 --bind 127.0.0.1`，打开 `http://127.0.0.1:8765/`。交付前从解压后的包实测一遍分步、回退和全屏。
+## 教室放映与交付
+
+交付 **单个 HTML 文件（双击即可放映）+ PDF**。把两份文件复制到教室电脑，双击 `index.html`，浏览器打开后按 F 全屏。PDF 用于分发和现场备用。
+
+→ / 空格 / PageDown / Enter 前进一步，← / PageUp 退一步，Home / End 跳到首尾页。N 开关讲者备注，O 打开总览，点击缩略图跳页，F 开关全屏。翻页笔可直接发送 PageDown / PageUp；地址栏 `#/页码` 可定位到指定页。
 
 ## 导出
 
@@ -66,16 +73,11 @@ BROWSER="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" node expo
 
 导出时会检查三个字体角色是否真的加载，没加载会提示（PDF 会退回系统字体）。
 
-## 字体
-
-- 字体文件放进 `fonts/`。正式交付前用 ochrelune-video 的 `font-subset.py` 按全篇用字子集化为 `title.woff2`、`body.woff2`、`number.woff2`，体积从几十 MB 降到几百 KB；改文案后重跑并检查缺字。
-- 没有 woff2 时 `fonts.css` 会依次尝试原始的 otf / ttf，再退回系统字体。
-
 ## 插画与笔触
 
 - 插画 SVG 直接放进页面（便于描边生长），或从配套视频工程复用同一份源文件。
 - 笔触（封面、章节页、结尾）用 ochrelune-video 的笔毛印模渲染成透明 PNG 放进 `img/`；只在放映时需要动态画出时才引入 p5 和 p5.brush。
 
-## 依赖
+## 开发预览
 
-只用浏览器原生能力（CSS、ES Module、View Transitions API）。导出需要 Node 和 Playwright。不引入框架、CDN 或在线字体，整个文件夹可以离线拷走放映。
+在制作机上可用 `node serve.mjs my-deck` 预览多文件源工程。PDF 导出工具使用同一内部服务器并通过 Playwright 渲染。

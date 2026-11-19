@@ -20,4 +20,4 @@ Milvoid 的课程 Pre 会在最后放一张 Apple 发布会式的总结页（便
 1. 从 deck 各页结论里提炼 10–14 个要点（数字类、机制类、建议类、开放问题），和标题块一起排版。
 2. 参考实现：[assets/summary/type-edition.mjs](../assets/summary/type-edition.mjs)（SVG 拼版、sharp 渲染为 4K PNG；路径是当时工程里的绝对路径，复用时改成本次工程）和 [assets/summary/text-outlines.swift](../assets/summary/text-outlines.swift)（用 CoreText 把苹方和 SF 文字转成路径，`swiftc text-outlines.swift -o text-outlines` 编译）。
 3. **先出三版不同构图**交她选，选定后再放进 deck。
-4. 放进 deck：HTML 里整页显示原图（不加页眉页脚），进页时整体淡入一次，不拆卡片做动画；PDF 嵌入 4K 原图，核对清晰度。
+4. 放进 deck：用 `<img src="media/总结图.png">` 整页显示 4K 原图，省去页眉页脚，进页时整体淡入一次。打包脚本把图片嵌入单文件 HTML；在双击打开的成品里核对卡片小字与细线。PDF 从源工程导出，保留 4K 原图。

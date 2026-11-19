@@ -5,7 +5,7 @@ description: 用 HTML 制作暖白纸面、宋体标题、线描插画的演示�
 
 # Ochrelune Slides · 纸面演示
 
-演示文稿是讲者的辅助工具，不是展示设计的舞台。这个 skill 把 Milvoid 的 Slides 制作理念（《一份详细的 Pre 用 PPT 制作指南》，见 [references/provenance.md](references/provenance.md)）和 ochrelune 的视觉语言合在一起：暖白纸面、墨色文字、陶土色只做少量强调、线描插画可以随讲解“画出来”。输出是一个本地 HTML 演示（放映）和一份 PDF（分发）。
+演示文稿是讲者的辅助工具，不是展示设计的舞台。这个 skill 把 Milvoid 的 Slides 制作理念（《一份详细的 Pre 用 PPT 制作指南》，见 [references/provenance.md](references/provenance.md)）和 ochrelune 的视觉语言合在一起：暖白纸面、墨色文字、陶土色只做少量强调、线描插画可以随讲解“画出来”。输出是单个 HTML 文件（双击即可放映）和一份 PDF（分发与备用）。
 
 视觉基础读 [ochrelune-design](../ochrelune-design/SKILL.md) §4–§5；插画和叙事的做法见 [ochrelune-video](../ochrelune-video/SKILL.md)。本 skill 只写 slides 和它们不同的部分。
 
@@ -58,7 +58,7 @@ description: 用 HTML 制作暖白纸面、宋体标题、线描插画的演示�
 3. **全篇**：按提纲逐页做，同类页面复用同一版式。讲稿写进每页的 `<aside class="notes">`。
 4. **动画**：只给需要分步讲的页面加 `data-step`，插画用描边生长，章节页加笔触。
 5. **导出与检查**：`node export.mjs` 导出 PDF 和缩略图总览，按 review.md 的清单逐项过，再做投影模拟和缩小测试。
-6. **交付**：HTML 离线放映包（zip，含子集化字体和 serve.mjs）+ PDF。建议用自己的电脑接投影放映，PDF 作现场备用。
+6. **交付**：在制作机上用 `node bundle.mjs my-deck 交付/index.html` 打包。交付单个 HTML 文件（教室电脑双击即可放映）+ PDF。
 
 ## 调用示例
 

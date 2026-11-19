@@ -138,6 +138,8 @@ body.overview #deck { position: static; transform: none; width: auto; height: au
 body.overview .slide { display: flex !important; flex-direction: column; position: relative; width: 1920px; height: 1080px; zoom: .25; cursor: pointer; }
 body.overview .slide.layout-cover, body.overview .slide.layout-closing { display: grid !important; }
 body.overview [data-step] { opacity: 1; transform: none; }
+body.overview svg.art.draw [data-ink] { stroke-dashoffset: 0; transition: none; }
+body.overview svg.art.draw [data-fill] { fill-opacity: 1; transition: none; }
 
 /* 页间淡入淡出（View Transitions 不可用时由 JS 退回） */
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }

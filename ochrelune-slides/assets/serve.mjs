@@ -1,5 +1,5 @@
-// 本地放映服务器。浏览器不允许 file:// 页面加载字体文件，所以演示要通过 http 打开。
-// 用法：node serve.mjs <deck 目录> [端口=8765]，然后浏览器打开显示的地址并按 F 全屏。
+// 源工程开发预览与 PDF 导出共用的本地服务器。
+// 用法：node serve.mjs <deck 目录> [端口=8765]，在浏览器中预览源工程。
 import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
 import {resolve, extname, sep} from 'node:path';
@@ -26,5 +26,5 @@ export function serve(dir, port = 0) {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const {url} = await serve(process.argv[2] || '.', Number(process.argv[3] || 8765));
-  console.log('放映地址：' + url + '  （Ctrl+C 结束）');
+  console.log('预览地址：' + url + '  （Ctrl+C 结束）');
 }

@@ -17,7 +17,7 @@ const browser = await chromium.launch({
   executablePath: process.env.BROWSER || undefined,
   channel: process.env.BROWSER ? undefined : process.env.BROWSER_CHANNEL || undefined,
 });
-// 通过本地 http 打开：file:// 页面加载不了字体文件
+// 导出时通过内部服务器读取源工程的字体与原图。
 const server = await serve(dirname(html));
 const page = await browser.newPage({viewport: {width: 1920, height: 1080}, deviceScaleFactor: 1});
 await page.goto(server.url + basename(html), {waitUntil: 'networkidle'});

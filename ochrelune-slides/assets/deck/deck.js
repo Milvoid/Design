@@ -42,6 +42,7 @@ function render() {
   const slide = slides[index];
   slides.forEach(s => s.classList.toggle('is-active', s === slide));
   slide.querySelectorAll('[data-step]').forEach(el => el.classList.toggle('is-shown', +el.dataset.step <= step));
+  drawArt(slide);
   const notes = slide.querySelector('.notes');
   panel.innerHTML = `<b>${index + 1} / ${slides.length}</b>　步骤 ${step}/${slide._steps}<br>` + (notes ? notes.innerHTML : '');
   history.replaceState(null, '', '#/' + (index + 1));
@@ -49,8 +50,13 @@ function render() {
 
 function drawArt(slide) {
   slide.querySelectorAll('svg.art.draw').forEach(svg => {
-    svg.classList.remove('is-drawn');
-    requestAnimationFrame(() => requestAnimationFrame(() => svg.classList.add('is-drawn')));
+    const hiddenStep = () => svg.closest('[data-step]:not(.is-shown)');
+    if (hiddenStep()) svg.classList.remove('is-drawn');
+    else if (!svg.classList.contains('is-drawn')) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (slide.classList.contains('is-active') && !hiddenStep()) svg.classList.add('is-drawn');
+      }));
+    }
   });
 }
 
@@ -58,7 +64,11 @@ function go(next, nextStep = 0) {
   next = Math.max(0, Math.min(slides.length - 1, next));
   if (next === index) { step = nextStep; render(); return; }
   const from = slides[index], to = slides[next];
-  const swap = () => { morphNames(from, false); index = next; step = nextStep; morphNames(to, true); render(); drawArt(to); };
+  const swap = () => {
+    morphNames(from, false);
+    from.querySelectorAll('.art.is-drawn').forEach(svg => svg.classList.remove('is-drawn'));
+    index = next; step = nextStep; morphNames(to, true); render();
+  };
   if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     morphNames(from, true);
     document.startViewTransition(swap);
@@ -94,5 +104,4 @@ const start = +(location.hash.match(/#\/(\d+)/)?.[1] || 1) - 1;
 index = Math.max(0, Math.min(slides.length - 1, start));
 morphNames(slides[index], true);
 render();
-drawArt(slides[index]);
 document.fonts.ready.then(() => document.body.classList.add('fonts-ready'));
