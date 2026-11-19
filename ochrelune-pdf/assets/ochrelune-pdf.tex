@@ -1,6 +1,7 @@
 % Ochrelune PDF 版式（XeLaTeX）。用法：正文第一行 \input{ochrelune-pdf.tex}
 % 需要在主文件之前（或主文件第一行之前）定义好：
 %   \def\ochretitle{文档标题}   \def\ochrefooter{主题 · 日期}（页脚不写署名）
+% 打印版：再加一行 \def\ochreprint{}，纸面和卡片底改为纯白（用户自备米色纸，黑白打印机印底色会出淡墨）。
 % 字体放在同目录 fonts/ 下（assets/fetch-fonts.sh 会下载）。
 \documentclass[11pt]{article}
 \usepackage[a4paper,top=22mm,bottom=24mm,left=22mm,right=22mm,headsep=8mm,footskip=12mm]{geometry}
@@ -27,6 +28,15 @@
 \definecolor{claydark}{HTML}{9F5038}
 \definecolor{olive}{HTML}{788C5D}
 \definecolor{rule}{HTML}{D9D5C8}
+\colorlet{todoframe}{oat}
+\def\todorule{0pt}
+\ifdefined\ochreprint
+  \definecolor{paper}{HTML}{FFFFFF}
+  \definecolor{oat}{HTML}{FFFFFF}
+  \definecolor{card}{HTML}{FFFFFF}
+  \colorlet{todoframe}{rule}
+  \def\todorule{0.6pt}
+\fi
 \pagecolor{paper}
 \color{ink}
 
@@ -71,7 +81,7 @@
 
 % ---------- 组件 ----------
 % todo：她要做或要决定的事（燕麦底 + 左侧陶土竖线）
-\newtcolorbox{todo}[1][你要做的]{enhanced,breakable,colback=oat,colframe=oat,boxrule=0pt,arc=3pt,
+\newtcolorbox{todo}[1][你要做的]{enhanced,breakable,colback=oat,colframe=todoframe,boxrule=\todorule,arc=3pt,
   left=12pt,right=12pt,top=8pt,bottom=8pt,
   borderline west={2.4pt}{0pt}{clay},
   title={\serif\color{claydark}#1},coltitle=claydark,colbacktitle=oat,attach title to upper,after title={\par\smallskip}}
